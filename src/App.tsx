@@ -1,7 +1,9 @@
+import Header from './components/Layouts/Header';
+
 const App = () => {
   return (
     <>
-      <p>Food App</p>
+      <Header />
     </>
   );
 };
