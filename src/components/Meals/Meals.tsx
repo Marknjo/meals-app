@@ -1,3 +1,4 @@
+import MealsItems from './MealsItems';
 import MealsSummary from './MealsSummary';
 
 const Meals = () => {
@@ -7,6 +8,7 @@ const Meals = () => {
       <MealsSummary />
 
       {/* Meals Items */}
+      <MealsItems />
     </>
   );
 };
