@@ -3,11 +3,11 @@ import styles from './MealsItems.module.css';
 
 const MealsItems = () => {
   return (
-    <div className={styles.meals}>
+    <section className={styles.meals}>
       <ul>
         <MealsItem />
       </ul>
-    </div>
+    </section>
   );
 };
 

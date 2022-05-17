@@ -1,4 +1,5 @@
 import styles from './MealsItem.module.css';
+import MealsItemForm from './MealsItemForm';
 
 const MealsItem = () => {
   return (
@@ -8,7 +9,11 @@ const MealsItem = () => {
         <div className="description">Susshi</div>
         <div className="price">$13.00</div>
       </div>
-      <div>{/* Meals Item Form */}</div>
+
+      {/* Meals Item Form */}
+      <div>
+        <MealsItemForm />
+      </div>
     </li>
   );
 };
