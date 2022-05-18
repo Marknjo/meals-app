@@ -16,13 +16,18 @@ const Backdrop = (props: ModalProps) => {
 // Overlay
 const ModalOverlay = (props: ModalProps) => {
   return (
-    <div className={styles.modal}>
-      <Card bgStyle="white" pdStyle="pd-lg">
-        <div className={styles.content} onClick={props.onClickHandler}>
-          {props.children}
-        </div>
-      </Card>
-    </div>
+    // <div className={styles.modal}>
+    //   <Card bgStyle="white" pdStyle="pd-lg" customClasses={styles.modal}>
+    //     <div className={styles.content} onClick={props.onClickHandler}>
+    //       {props.children}
+    //     </div>
+    //   </Card>
+    // </div>
+    <Card bgStyle="white" pdStyle="pd-lg" customClasses={styles.modal}>
+      <div className={styles.content} onClick={props.onClickHandler}>
+        {props.children}
+      </div>
+    </Card>
   );
 };
 
