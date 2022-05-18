@@ -1,9 +1,25 @@
+import { useRef } from 'react';
+import Input from '../../UI/Input';
 import styles from './MealsItemForm.module.css';
 
 const MealsItemForm = () => {
+  const amountInputRef = useRef(null);
+
   return (
     <form className={styles.form}>
-      <input type="number" min="1" max="5" required aria-required />
+      {/* <input type="number" min="1" max="5" required aria-required /> */}
+      <Input
+        ref={amountInputRef}
+        label="Amount"
+        input={{
+          id: 'amount',
+          type: 'number',
+          min: '1',
+          max: '5',
+          step: '1',
+          defaultValue: '1',
+        }}
+      />
 
       <button
         type="submit"
