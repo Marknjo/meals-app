@@ -6,6 +6,7 @@ import styles from './Modal.module.css';
 interface ModalProps {
   children?: React.ReactNode;
   onClickHandler: () => void;
+  bgStyle?: string;
 }
 
 // Backdrop
@@ -16,14 +17,11 @@ const Backdrop = (props: ModalProps) => {
 // Overlay
 const ModalOverlay = (props: ModalProps) => {
   return (
-    // <div className={styles.modal}>
-    //   <Card bgStyle="white" pdStyle="pd-lg" customClasses={styles.modal}>
-    //     <div className={styles.content} onClick={props.onClickHandler}>
-    //       {props.children}
-    //     </div>
-    //   </Card>
-    // </div>
-    <Card bgStyle="white" pdStyle="pd-lg" customClasses={styles.modal}>
+    <Card
+      bgStyle={props.bgStyle ? props.bgStyle : 'white'}
+      pdStyle="pd-lg"
+      customClasses={styles.modal}
+    >
       <div className={styles.content} onClick={props.onClickHandler}>
         {props.children}
       </div>
