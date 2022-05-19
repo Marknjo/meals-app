@@ -1,8 +1,8 @@
 import Card from '../UI/Card';
 import MealsItem from './MealsItem/MealsItem';
-import styles from './MealsItems.module.css';
+import styles from './MealsAvailable.module.css';
 
-const MealsItems = () => {
+const MealsAvailable = () => {
   return (
     <section className={styles.meals}>
       <Card bgStyle="white">
@@ -15,4 +15,4 @@ const MealsItems = () => {
   );
 };
 
-export default MealsItems;
+export default MealsAvailable;

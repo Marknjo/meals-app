@@ -1,4 +1,4 @@
-import MealsItems from './MealsItems';
+import MealsAvailable from './MealsAvailable';
 import MealsSummary from './MealsSummary';
 
 const Meals = () => {
@@ -8,7 +8,7 @@ const Meals = () => {
       <MealsSummary />
 
       {/* Meals Items */}
-      <MealsItems />
+      <MealsAvailable />
     </>
   );
 };
