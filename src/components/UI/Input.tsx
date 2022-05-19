@@ -10,6 +10,7 @@ export interface InputProps {
     max: string;
     step: string;
     defaultValue: string;
+    value?: string;
   };
 }
 
