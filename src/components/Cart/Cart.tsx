@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Modal from '../UI/Modal';
 import styles from './Cart.module.css';
+import CartItem from './CartItem';
 
 interface CartProps {
   onCloseModal: () => void;
@@ -11,7 +12,13 @@ const Cart = (props: CartProps) => {
     <Modal onClickHandler={props.onCloseModal}>
       {/* Cart Items */}
       <ul className={styles['cart-items']}>
-        <li>Item</li>
+        <CartItem
+          name="Test Item"
+          price={200}
+          amount={2}
+          onAddHandler={() => null}
+          onRemoveHandler={() => null}
+        />
       </ul>
 
       {/* Cart Footer */}

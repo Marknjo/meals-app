@@ -5,8 +5,9 @@
     max-height: 32rem;
     overflow: auto;
 
-    padding-bottom: 1.6rem;
+    /* padding-bottom: 1.6rem; */
     border-bottom: 1px solid rgba(138, 43, 6, 0.2);
+
   }
   
   .total {
