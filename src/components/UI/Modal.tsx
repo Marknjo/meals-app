@@ -5,7 +5,7 @@ import styles from './Modal.module.css';
 
 interface ModalProps {
   children?: React.ReactNode;
-  onClickHandler: () => void;
+  onClickHandler?: () => void;
   bgStyle?: string;
 }
 
@@ -22,9 +22,7 @@ const ModalOverlay = (props: ModalProps) => {
       pdStyle="pd-lg"
       customClasses={styles.modal}
     >
-      <div className={styles.content} onClick={props.onClickHandler}>
-        {props.children}
-      </div>
+      <div className={styles.content}>{props.children}</div>
     </Card>
   );
 };
