@@ -2,7 +2,11 @@ import { FormEvent, RefObject, useRef, useState } from 'react';
 import Input from '../../UI/Input';
 import styles from './MealsItemForm.module.css';
 
-const MealsItemForm = () => {
+interface MealsItemFormProps {
+  addToCart: (enteredQuantity: number) => void;
+}
+
+const MealsItemForm = (props: MealsItemFormProps) => {
   const amountInputRef = useRef<HTMLInputElement>(null);
 
   const [formHasErrors, setFormHasErrors] = useState(false);
@@ -14,10 +18,14 @@ const MealsItemForm = () => {
       // Handle validations
       if (!amountInputRef.current) throw new Error('Please add a valid amount');
 
-      // Const update store
-      const amount = amountInputRef.current.value;
+      const enteredQuantity = parseInt(amountInputRef.current.value, 10);
+      if (enteredQuantity <= 0 && enteredQuantity > 5)
+        throw new Error(
+          `Your meal quantity is ${enteredQuantity}. However, you can only order a meal for a max of 5 people or above one person`
+        );
 
-      // increase cart values
+      // Const update store
+      props.addToCart(enteredQuantity);
 
       // Clear input Value
       amountInputRef.current.value = '1';

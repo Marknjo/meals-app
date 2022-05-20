@@ -12,7 +12,9 @@ function CartProvider(props: CartProviderProps) {
   const meals = useMemo(() => DUMMY_MEALS, []);
 
   // Add items to cart
-  const addMealToCartHandler = (payload: MealsData) => {};
+  const addMealToCartHandler = (payload: MealsData) => {
+    console.table(payload);
+  };
 
   // Remove Item from the cart
   const removeMealHandler = (id: string) => {};

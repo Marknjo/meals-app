@@ -1,9 +1,25 @@
+import { v4 as uuidv4 } from 'uuid';
+
+import { useContext } from 'react';
 import MealsData from '../../../data/MealsData';
+import cartContext from '../../../store/cart-context';
 import styles from './MealsItem.module.css';
 import MealsItemForm from './MealsItemForm';
 
 const MealsItem = (props: MealsData) => {
   const transfromedPrice = `$${props.price.toFixed(2)}`;
+  const { addMealToCart } = useContext(cartContext);
+
+  /// Handle adding meals to cart
+  const addMealsToCartHandler = (enteredQuantity: number) => {
+    addMealToCart({
+      id: uuidv4(),
+      name: props.name,
+      description: props.description,
+      price: props.price,
+      quantity: enteredQuantity,
+    });
+  };
 
   return (
     <li className={styles.meal}>
@@ -15,7 +31,7 @@ const MealsItem = (props: MealsData) => {
 
       {/* Meals Item Form */}
       <div>
-        <MealsItemForm />
+        <MealsItemForm addToCart={addMealsToCartHandler} />
       </div>
     </li>
   );
