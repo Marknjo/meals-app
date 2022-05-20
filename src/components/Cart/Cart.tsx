@@ -26,6 +26,9 @@ const Cart = (props: CartProps) => {
     cartCtx.removeMeal(id);
   };
 
+  /// Update total amount in the cart
+  const cartTotalAmt = cartCtx.totalAmount.toFixed(2);
+
   return (
     <Modal onClickHandler={props.onCloseModal}>
       {/* Cart Items */}
@@ -44,7 +47,7 @@ const Cart = (props: CartProps) => {
       {/* Cart Footer */}
       <div className={styles.total}>
         <span>Total Amount</span>
-        <span>${(12.5).toFixed(2)}</span>
+        <span>${cartTotalAmt}</span>
       </div>
 
       <div className={styles.actions}>
