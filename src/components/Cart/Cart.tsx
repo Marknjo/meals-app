@@ -1,4 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode, useCallback, useContext } from 'react';
+import MealsData from '../../data/MealsData';
+import cartContext from '../../store/cart-context';
 import Modal from '../UI/Modal';
 import styles from './Cart.module.css';
 import CartItem from './CartItem';
@@ -8,17 +10,31 @@ interface CartProps {
 }
 
 const Cart = (props: CartProps) => {
+  const cartCtx = useContext(cartContext);
+
+  const addNewItemOrder = useCallback((order: MealsData) => {
+    cartCtx.addMealToCart({
+      id: order.id,
+      name: order.name,
+      description: order.description,
+      price: order.price,
+      quantity: 1,
+    });
+  }, []);
+
   return (
     <Modal onClickHandler={props.onCloseModal}>
       {/* Cart Items */}
       <ul className={styles['cart-items']}>
-        <CartItem
-          name="Test Item"
-          price={200}
-          amount={2}
-          onAddHandler={() => null}
-          onRemoveHandler={() => null}
-        />
+        {cartCtx.cart.map(order => (
+          <CartItem
+            name={order.name}
+            price={order.price}
+            quantity={order.quantity!}
+            onAddHandler={addNewItemOrder.bind(null, order)}
+            onRemoveHandler={() => null}
+          />
+        ))}
       </ul>
 
       {/* Cart Footer */}
