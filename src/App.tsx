@@ -2,7 +2,7 @@ import Cart from './components/Cart/Cart';
 import Header from './components/Layouts/Header';
 import Meals from './components/Meals/Meals';
 import useModal from './hooks/use-modal';
-import CartProvider from './store/cart-provider';
+import CartProvider from './store/CartProvider';
 
 const App = () => {
   const {
