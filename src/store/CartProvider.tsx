@@ -62,9 +62,38 @@ const cartActionsReducer = (
   /// Remove from Cart
   if (actions.type === 'REMOVE_MEAL') {
     const payload = actions.payload as string;
-    //
+
+    /// Find the current meal item index
+    const mealItemIndex = state.cart.findIndex(order => order.id === payload);
+    const foundMealItem = state.cart[mealItemIndex];
+
+    /// DO nothing if not meal is found with passed id
+    if (!foundMealItem) return { ...state };
+
+    /// Prep new total amount
+    const updatedTotalAmount = state.totalAmount - foundMealItem.price;
+
+    /// Handle only one item in the cart
+    if (foundMealItem.quantity! === 1) {
+      const newState = state.cart.filter(order => order.id !== payload);
+      return {
+        cart: newState,
+        totalAmount: updatedTotalAmount,
+      };
+    }
+
+    /// Handle case where the cart has more than 1 item (reduce cart by one)
+    const updateMealItem = {
+      ...foundMealItem,
+      quantity: foundMealItem.quantity! - 1,
+    };
+
+    const cartCopy = [...state.cart];
+    cartCopy[mealItemIndex] = updateMealItem;
+
     return {
-      ...state,
+      cart: cartCopy,
+      totalAmount: updatedTotalAmount,
     };
   }
 
@@ -97,9 +126,6 @@ function CartProvider(props: CartProviderProps) {
   const clearCartHandler = () => {
     dispatch({ type: 'CLEAR_CART' });
   };
-
-  // console.table(cartState.totalAmount);
-  console.table(cartState.cart);
 
   return (
     <cartContext.Provider

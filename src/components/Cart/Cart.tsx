@@ -22,6 +22,10 @@ const Cart = (props: CartProps) => {
     });
   }, []);
 
+  const reduceMealCount = (id: string) => {
+    cartCtx.removeMeal(id);
+  };
+
   return (
     <Modal onClickHandler={props.onCloseModal}>
       {/* Cart Items */}
@@ -32,7 +36,7 @@ const Cart = (props: CartProps) => {
             price={order.price}
             quantity={order.quantity!}
             onAddHandler={addNewItemOrder.bind(null, order)}
-            onRemoveHandler={() => null}
+            onRemoveHandler={reduceMealCount.bind(null, order.id)}
           />
         ))}
       </ul>
