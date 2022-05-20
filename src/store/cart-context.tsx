@@ -2,7 +2,8 @@ import { createContext } from 'react';
 import MealsData from '../data/MealsData';
 
 interface CartCtx {
-  items: MealsData[];
+  cart: MealsData[];
+  meals: MealsData[];
   totalAmount: number;
   addMealToCart: (payload: MealsData) => void;
   removeMeal: (id: string) => void;
@@ -10,7 +11,8 @@ interface CartCtx {
 }
 
 const cartIntialState: CartCtx = {
-  items: [],
+  cart: [],
+  meals: [],
   totalAmount: 0,
   addMealToCart: (_payload: MealsData) => {},
   removeMeal: (_id: string) => {},

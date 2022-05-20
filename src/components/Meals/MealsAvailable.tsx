@@ -11,7 +11,7 @@ const MealsAvailable = () => {
     <section className={styles.meals}>
       <Card bgStyle="white">
         <ul>
-          {ctx.items.map(meal => (
+          {ctx.meals.map(meal => (
             <MealsItem
               key={meal.id}
               id={meal.id}

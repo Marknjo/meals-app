@@ -4,7 +4,7 @@ import CartIcon from '../Cart/CartIcon';
 import styles from './HeaderCartButton.module.css';
 
 const HeaderCartButton = (props: { onShowCart: () => void }) => {
-  const { items } = useContext(cartContext);
+  const { meals: items } = useContext(cartContext);
 
   /// Calculate total meals items per the items in the Cart.
   const totalMeals = items.reduce((currQty, mealsData) => {

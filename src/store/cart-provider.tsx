@@ -9,7 +9,7 @@ interface CartProviderProps {
 
 function CartProvider(props: CartProviderProps) {
   // Get current items
-  const items = useMemo(() => DUMMY_MEALS, []);
+  const meals = useMemo(() => DUMMY_MEALS, []);
 
   // Add items to cart
   const addMealToCartHandler = (payload: MealsData) => {};
@@ -23,7 +23,8 @@ function CartProvider(props: CartProviderProps) {
   return (
     <cartContext.Provider
       value={{
-        items,
+        cart: [],
+        meals,
         totalAmount: 0,
         addMealToCart: addMealToCartHandler,
         removeMeal: removeMealHandler,
