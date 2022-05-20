@@ -13,7 +13,7 @@ const MealsItem = (props: MealsData) => {
   /// Handle adding meals to cart
   const addMealsToCartHandler = (enteredQuantity: number) => {
     addMealToCart({
-      id: uuidv4(),
+      id: props.id,
       name: props.name,
       description: props.description,
       price: props.price,
