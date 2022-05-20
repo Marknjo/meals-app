@@ -4,10 +4,10 @@ import CartIcon from '../Cart/CartIcon';
 import styles from './HeaderCartButton.module.css';
 
 const HeaderCartButton = (props: { onShowCart: () => void }) => {
-  const { meals: items } = useContext(cartContext);
+  const { cart } = useContext(cartContext);
 
   /// Calculate total meals items per the items in the Cart.
-  const totalMeals = items.reduce((currQty, mealsData) => {
+  const totalMeals = cart.reduce((currQty, mealsData) => {
     if (mealsData.quantity) {
       currQty += mealsData.quantity;
     }
