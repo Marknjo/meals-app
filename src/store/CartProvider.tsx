@@ -3,6 +3,16 @@ import DUMMY_MEALS from '../data/meals-dummy-data';
 import MealsData from '../data/MealsData';
 import cartContext from './cart-context';
 
+/**
+ * REDUCER TYPES
+ */
+
+enum CartActions {
+  ADD_MEAL,
+  CLEAR_CART,
+  REMOVE_MEAL,
+}
+
 interface CartProviderProps {
   children: ReactNode;
 }
@@ -14,7 +24,7 @@ interface StateTypes {
 
 interface ActionsTypes {
   payload?: MealsData | string;
-  type: string;
+  type: CartActions;
 }
 
 const initialState = {
@@ -58,7 +68,7 @@ const updateMealsState = (
   updatedTotalAmount: number,
   mealItemIndex: number,
   newQuantity?: number,
-  action?: string
+  action?: CartActions
 ) => {
   let increaseTotals: number = 0; // It is never set
   let decreaseTotals = foundMealItem.quantity! - 1;
@@ -70,7 +80,7 @@ const updateMealsState = (
 
   const updateMealItem = {
     ...foundMealItem,
-    quantity: action === 'ADD_MEAL' ? increaseTotals : decreaseTotals,
+    quantity: action === CartActions.ADD_MEAL ? increaseTotals : decreaseTotals,
   };
 
   const cartCopy = [...state.cart];
@@ -93,7 +103,7 @@ const cartActionsReducer = (
   actions: ActionsTypes
 ): StateTypes => {
   /// Add to Cart
-  if (actions.type === 'ADD_MEAL') {
+  if (actions.type === CartActions.ADD_MEAL) {
     const payload = actions.payload as MealsData;
 
     const updatedTotalAmount =
@@ -120,12 +130,12 @@ const cartActionsReducer = (
       updatedTotalAmount,
       mealItemIndex,
       payload.quantity!,
-      'ADD_MEAL'
+      CartActions.ADD_MEAL
     );
   }
 
   /// Remove from Cart
-  if (actions.type === 'REMOVE_MEAL') {
+  if (actions.type === CartActions.REMOVE_MEAL) {
     const payload = actions.payload as string;
 
     /// Find the current meal item index and its ID
@@ -156,7 +166,7 @@ const cartActionsReducer = (
   }
 
   /// Clear Cart Items
-  if (actions.type === 'CLEAR_CART') {
+  if (actions.type === CartActions.CLEAR_CART) {
     return initialState;
   }
 
@@ -172,17 +182,17 @@ function CartProvider(props: CartProviderProps) {
 
   // Add items to cart
   const addMealToCartHandler = (payload: MealsData) => {
-    dispatch({ type: 'ADD_MEAL', payload });
+    dispatch({ type: CartActions.ADD_MEAL, payload });
   };
 
   // Remove Item from the cart
   const removeMealHandler = (id: string) => {
-    dispatch({ type: 'REMOVE_MEAL', payload: id });
+    dispatch({ type: CartActions.REMOVE_MEAL, payload: id });
   };
 
   // Remove items from the cart Hanlder
   const clearCartHandler = () => {
-    dispatch({ type: 'CLEAR_CART' });
+    dispatch({ type: CartActions.CLEAR_CART });
   };
 
   return (
