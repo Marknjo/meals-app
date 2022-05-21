@@ -42,6 +42,46 @@ const findIndexAndPayload = (
   return [mealItemIndex, foundMealItem];
 };
 
+/**
+ * This is a helper reducer with common data shared between ADD and REDUCE meal
+ * @param state Meals state
+ * @param foundMealItem Item found when there is an incoming request to increase or decrease items from the cart
+ * @param updatedTotalAmount Totals after the current item is updated
+ * @param mealItemIndex The index of the incoming item
+ * @param newQuantity A value represeinting the amount to increase or reduce the state by. Only relevant to increase
+ * @param action Sets wheather it is adding or removing item
+ * @returns A new meals reducer state snapshot with updated meals state and the total amount
+ */
+const updateMealsState = (
+  state: StateTypes,
+  foundMealItem: MealsData,
+  updatedTotalAmount: number,
+  mealItemIndex: number,
+  newQuantity?: number,
+  action?: string
+) => {
+  let increaseTotals: number = 0; // It is never set
+  let decreaseTotals = foundMealItem.quantity! - 1;
+
+  if (newQuantity) {
+    increaseTotals = foundMealItem.quantity! + newQuantity;
+    decreaseTotals = foundMealItem.quantity! - newQuantity;
+  }
+
+  const updateMealItem = {
+    ...foundMealItem,
+    quantity: action === 'ADD_MEAL' ? increaseTotals : decreaseTotals,
+  };
+
+  const cartCopy = [...state.cart];
+  cartCopy[mealItemIndex] = updateMealItem;
+
+  return {
+    cart: cartCopy,
+    totalAmount: updatedTotalAmount,
+  };
+};
+
 const cartActionsReducer = (
   state: StateTypes,
   actions: ActionsTypes
@@ -68,18 +108,14 @@ const cartActionsReducer = (
     }
 
     /// There was something in the cart -> Find it and replace it with the updates
-    const updateMealItem = {
-      ...foundMealItem,
-      quantity: foundMealItem.quantity! + payload.quantity!,
-    };
-
-    const cartCopy = [...state.cart];
-    cartCopy[mealItemIndex] = updateMealItem;
-
-    return {
-      cart: cartCopy,
-      totalAmount: updatedTotalAmount,
-    };
+    return updateMealsState(
+      state,
+      foundMealItem,
+      updatedTotalAmount,
+      mealItemIndex,
+      payload.quantity!,
+      'ADD_MEAL'
+    );
   }
 
   /// Remove from Cart
@@ -105,18 +141,12 @@ const cartActionsReducer = (
     }
 
     /// Handle case where the cart has more than 1 item (reduce cart by one)
-    const updateMealItem = {
-      ...foundMealItem,
-      quantity: foundMealItem.quantity! - 1,
-    };
-
-    const cartCopy = [...state.cart];
-    cartCopy[mealItemIndex] = updateMealItem;
-
-    return {
-      cart: cartCopy,
-      totalAmount: updatedTotalAmount,
-    };
+    return updateMealsState(
+      state,
+      foundMealItem,
+      updatedTotalAmount,
+      mealItemIndex
+    );
   }
 
   /// Clear Cart Items
