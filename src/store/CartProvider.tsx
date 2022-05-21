@@ -59,27 +59,27 @@ const cartActionsReducer = (
       payload.id
     );
 
-    if (foundMealItem) {
-      const updateMealItem = {
-        ...foundMealItem,
-        quantity: foundMealItem.quantity! + payload.quantity!,
-      };
-
-      const cartCopy = [...state.cart];
-      cartCopy[mealItemIndex] = updateMealItem;
-
+    /// If not item in the state, just add a new item
+    if (!foundMealItem) {
       return {
-        cart: cartCopy,
-        totalAmount: updatedTotalAmount,
-      };
-    } else {
-      /// There is no meal with such id in the cart
-      return {
-        ...state,
         cart: [...state.cart, payload],
         totalAmount: payload.price + state.totalAmount,
       };
     }
+
+    /// There was something in the cart -> Find it and replace it with the updates
+    const updateMealItem = {
+      ...foundMealItem,
+      quantity: foundMealItem.quantity! + payload.quantity!,
+    };
+
+    const cartCopy = [...state.cart];
+    cartCopy[mealItemIndex] = updateMealItem;
+
+    return {
+      cart: cartCopy,
+      totalAmount: updatedTotalAmount,
+    };
   }
 
   /// Remove from Cart
