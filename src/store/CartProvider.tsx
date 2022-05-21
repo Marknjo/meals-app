@@ -82,6 +82,12 @@ const updateMealsState = (
   };
 };
 
+/**
+ * Cart reducer for the cart provider
+ * @param state contains Meals items snapshot in the cart
+ * @param actions Handles action types and payload
+ * @returns The snapshot of the cart depending on the (state and total amount)
+ */
 const cartActionsReducer = (
   state: StateTypes,
   actions: ActionsTypes
@@ -125,7 +131,7 @@ const cartActionsReducer = (
     /// Find the current meal item index and its ID
     const [mealItemIndex, foundMealItem] = findIndexAndPayload(state, payload);
 
-    /// DO nothing if not meal is found with passed id
+    /// Do nothing if a meal is not found - Almost useless. But a good guard if an invalid id is received
     if (!foundMealItem) return { ...state };
 
     /// Prep new total amount
