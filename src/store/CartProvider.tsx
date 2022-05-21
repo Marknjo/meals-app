@@ -22,6 +22,26 @@ const initialState = {
   totalAmount: 0,
 };
 
+/**
+ * REDUCERS HELPERS
+ */
+
+/**
+ * Finds the index of the incoming payload and meals data
+ * @param mealsState
+ * @param mealId
+ * @returns
+ */
+const findIndexAndPayload = (
+  mealsState: StateTypes,
+  mealId: string
+): [number, MealsData | undefined] => {
+  const mealItemIndex = mealsState.cart.findIndex(meal => meal.id === mealId);
+  const foundMealItem = mealsState.cart[mealItemIndex];
+
+  return [mealItemIndex, foundMealItem];
+};
+
 const cartActionsReducer = (
   state: StateTypes,
   actions: ActionsTypes
@@ -32,9 +52,12 @@ const cartActionsReducer = (
 
     const updatedTotalAmount =
       payload.quantity! * payload.price + state.totalAmount;
+
     // find data in the cart
-    const mealItemIndex = state.cart.findIndex(meal => meal.id === payload.id);
-    const foundMealItem = state.cart[mealItemIndex];
+    const [mealItemIndex, foundMealItem] = findIndexAndPayload(
+      state,
+      payload.id
+    );
 
     if (foundMealItem) {
       const updateMealItem = {
@@ -63,9 +86,8 @@ const cartActionsReducer = (
   if (actions.type === 'REMOVE_MEAL') {
     const payload = actions.payload as string;
 
-    /// Find the current meal item index
-    const mealItemIndex = state.cart.findIndex(order => order.id === payload);
-    const foundMealItem = state.cart[mealItemIndex];
+    /// Find the current meal item index and its ID
+    const [mealItemIndex, foundMealItem] = findIndexAndPayload(state, payload);
 
     /// DO nothing if not meal is found with passed id
     if (!foundMealItem) return { ...state };
