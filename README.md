@@ -1,4 +1,4 @@
-# :rocket: React Lab
+# :rocket: React Meals
 
 ## :balloon: Overview
 
@@ -7,6 +7,16 @@ This is a simple setup for exercising React muscles. This is not project specifi
 This project was bootstrapped with [Vite React](https://vitejs.dev/guide/#scaffolding-your-first-vite-project). Initially it was build with react create app. However, Vite has an edge over React for its speed and ease of use, including configuration and installing scripts.
 
 The code base in this repo is built using React 18 and typescript. Previously, the code was written in vannila JavaScript. See v17-lab.
+
+## Project Teck Stack
+
+This project is build with mainly React and Typescript. The other tech stack, well it is a must know. Below is the list of all of it.
+
+1. HTML
+2. REACT
+3. TYPESCRIPT
+4. JAVASCRIPT
+5. CSS
 
 ## Available Scripts
 
